@@ -191,6 +191,7 @@ export const hasClass = (element, cls) => {
 
 export const addClass = (element, cls) => {
   if (element) {
+    element.className = element.className || ''
     const classes = element.className.split(" ").filter(p => p);
     if (classes.indexOf(cls) === -1) {
       classes.unshift(cls);
