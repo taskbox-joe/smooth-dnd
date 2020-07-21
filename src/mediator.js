@@ -286,9 +286,6 @@ function onMouseDown(event) {
   if (!isDragging && (e.button === undefined || e.button === 0)) {
     grabbedElement = Utils.getParent(e.target, '.' + constants.wrapperClass);
     if (grabbedElement) {
-      if(/iP(ad|od|hone)/.test(navigator.userAgent) && event.type === 'touchstart') {
-        event.preventDefault();
-      }
       const containerElement = Utils.getParent(grabbedElement, '.' + constants.containerClass);
       const container = containers.filter(p => p.element === containerElement)[0];
       const dragHandleSelector = container.getOptions().dragHandleSelector;
@@ -304,6 +301,9 @@ function onMouseDown(event) {
       }
 
       if (startDrag) {
+        if(/iP(ad|od|hone)/.test(navigator.userAgent) && event.type === 'touchstart') {
+          event.preventDefault();
+        }
         handleDragStartConditions(e, container.getOptions().dragBeginDelay, () => {
           Utils.clearSelection();
           initiateDrag(e, Utils.getElementCursor(event.target));
